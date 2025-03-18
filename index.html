@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Starsgram Mini App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Основные стили */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0A1F44; /* Темно-синий фон */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* Стили для квадратов */
+        .square {
+            width: 80%;
+            max-width: 300px;
+            height: 100px;
+            background-color: #1E3A8A; /* Синий цвет для квадратов */
+            border-radius: 20px; /* Закругленные углы */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .square:hover {
+            background-color: #3B82F6; /* Изменение цвета при наведении */
+        }
+
+        /* Стили для экранов "Купить звёзды" и "Продать звёзды" */
+        .screen {
+            display: none;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .back-button {
+            margin-bottom: 20px;
+            cursor: pointer;
+            color: #3B82F6;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Главный экран -->
+    <div id="main-screen">
+        <div class="square" onclick="showScreen('buy')">
+            <span>Купить звёзды</span>
+        </div>
+        <div class="square" onclick="showScreen('sell')">
+            <span>Продать звёзды</span>
+        </div>
+    </div>
+
+    <!-- Экран "Купить звёзды" -->
+    <div id="buy-screen" class="screen">
+        <div class="back-button" onclick="showScreen('main')">← Назад</div>
+        <h2>Купить звёзды</h2>
+        <p>Получатель /купить себе 💬️</p>
+        <form>
+            <label for="username">Имя пользователя Telegram</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="stars">Введите число от 50 до 20 000</label>
+            <input type="number" id="stars" name="stars" min="50" max="20000" required>
+
+            <button type="submit">Оплатить</button>
+        </form>
+    </div>
+
+    <!-- Экран "Продать звёзды" -->
+    <div id="sell-screen" class="screen">
+        <div class="back-button" onclick="showScreen('main')">← Назад</div>
+        <h2>Продать звёзды</h2>
+        <form>
+            <label>
+                <input type="radio" name="method" value="wallet" checked> На кошелёк (это выгоднее и быстрее)
+            </label>
+            <label>
+                <input type="radio" name="method" value="card"> На карту (только карты РФ и Казахстана)
+            </label>
+
+            <label for="wallet">Кошелек получателя USDT в сети TON</label>
+            <input type="text" id="wallet" name="wallet" required>
+
+            <label for="memo">Memo/Комментарий к продаже (необязательно, если указываете кошелёк биржи)</label>
+            <input type="text" id="memo" name="memo">
+
+            <label for="sell-stars">Введите число от 100 до 50 000</label>
+            <input type="number" id="sell-stars" name="sell-stars" min="100" max="50000" required>
+
+            <button type="submit">Продать</button>
+        </form>
+    </div>
+
+    <script>
+        // Функция для переключения экранов
+        function showScreen(screenId) {
+            document.getElementById('main-screen').style.display = screenId === 'main' ? 'block' : 'none';
+            document.getElementById('buy-screen').classList.toggle('active', screenId === 'buy');
+            document.getElementById('sell-screen').classList.toggle('active', screenId === 'sell');
+        }
+    </script>
+</body>
+</html>
